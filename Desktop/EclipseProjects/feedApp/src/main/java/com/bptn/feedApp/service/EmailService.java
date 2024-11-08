@@ -6,8 +6,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
+import org.thymeleaf.context.Context;
 
 import com.bptn.feedApp.jpa.User;
 import com.bptn.feedApp.provider.ResourceProvider;
@@ -67,6 +69,15 @@ public class EmailService {
 
 			this.logger.error("Error while Sending Email, Username: " + user.getUsername(), ex);
 		}
+
+	}
+
+	@Async
+	public void sendVerificationEmail(User user) {
+
+		this.sendEmail(user, this.provider.getClientVerifyParam(), "verify_email",
+				String.format("Welcome %s %s", user.getFirstName(), user.getLastName()),
+				this.provider.getClientVerifyExpiration());
 	}
 
 }
