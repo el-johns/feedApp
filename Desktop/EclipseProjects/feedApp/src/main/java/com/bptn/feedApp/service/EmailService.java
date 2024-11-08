@@ -9,8 +9,9 @@ import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.stereotype.Service;
 import org.thymeleaf.TemplateEngine;
 
-import com.bptn.feedapp.provider.ResourceProvider;
-import com.bptn.feedapp.security.JwtService;
+import com.bptn.feedApp.jpa.User;
+import com.bptn.feedApp.provider.ResourceProvider;
+import com.bptn.feedApp.security.JwtService;
 
 import jakarta.mail.internet.MimeMessage;
 
