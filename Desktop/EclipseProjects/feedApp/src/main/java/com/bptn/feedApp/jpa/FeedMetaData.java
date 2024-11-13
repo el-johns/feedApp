@@ -87,8 +87,8 @@ public class FeedMetaData implements Serializable {
 		this.user = user;
 	}
 
-	public static long getSerialversionuid() {
-		return serialVersionUID;
-	}
+//	public static long getSerialversionuid() {
+//		return serialVersionUID;
+//	}
 
 }

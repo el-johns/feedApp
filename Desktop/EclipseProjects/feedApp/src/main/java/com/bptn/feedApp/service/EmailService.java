@@ -19,6 +19,7 @@ import jakarta.mail.internet.MimeMessage;
 
 @Service
 public class EmailService {
+	final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Value("${spring.mail.username}")
 	private String emailFrom;
@@ -34,8 +35,6 @@ public class EmailService {
 
 	@Autowired
 	JavaMailSender javaMailSender;
-
-	final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	private void sendEmail(User user, String clientParam, String templateName, String emailSubject, long expiration) {
 
@@ -69,7 +68,6 @@ public class EmailService {
 
 			this.logger.error("Error while Sending Email, Username: " + user.getUsername(), ex);
 		}
-
 	}
 
 	@Async
@@ -78,6 +76,13 @@ public class EmailService {
 		this.sendEmail(user, this.provider.getClientVerifyParam(), "verify_email",
 				String.format("Welcome %s %s", user.getFirstName(), user.getLastName()),
 				this.provider.getClientVerifyExpiration());
+	}
+
+	@Async
+	public void sendResetPasswordEmail(User user) {
+
+		this.sendEmail(user, this.provider.getClientResetParam(), "reset_password", "Reset your password",
+				this.provider.getClientResetExpiration());
 	}
 
 }

@@ -15,7 +15,6 @@ import com.bptn.feedApp.provider.ResourceProvider;
 
 @Component
 public class JwtService {
-
 	final Logger logger = LoggerFactory.getLogger(this.getClass());
 
 	@Autowired
@@ -40,5 +39,4 @@ public class JwtService {
 		return JWT.require(HMAC512(this.provider.getJwtSecret())).withIssuer(this.provider.getJwtIssuer()).build()
 				.verify(token).getSubject();
 	}
-
 }
